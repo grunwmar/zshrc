@@ -11,7 +11,6 @@ function cl () {
 	echo "%{\033[$1m%}"
 }
 
-
 function get_git_branch() {
     GIT=$(git branch --show-current 2>/dev/null)
     if [[ -n $GIT ]]; then
@@ -19,14 +18,12 @@ function get_git_branch() {
     fi
 }
 
-
 function get_virtualenv() {
     if [[ -n $VIRTUAL_ENV ]]; then
       VENV=$(basename $VIRTUAL_ENV)
       echo "\033[3m%}%F{2}$VENV%f%{\033[0m%} » "
     fi
 }
-
 
 function get_hostname() {
 	HOSTNAME=$(hostname)
@@ -37,19 +34,11 @@ function get_hostname() {
 	fi
 }
 
-
-
-
-#*******************************************************************************
-
+#***********************************************************************************************************************
 function precmd() {
-
-
   STAT="$?"
   EXITC="%(?..%F{9}-%?-%f$NEWLINE)"
-
   PROMPT='$EXITC$NEWLINE┌$(get_virtualenv)%F{10}%B%n%b%f$(get_hostname 10) %F{15}%B%~%b%f$(get_git_branch)'
   RPROMPT=''
-
   PROMPT="$PROMPT$NEWLINE└%F{10}%D{%H:%M}%f%(!.#.%B%%%b) "
 }
