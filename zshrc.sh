@@ -46,8 +46,15 @@ fi
 # ***** SOURCING PREDEFINED FUNCTIONS.ZSH/ALIASES.ZSH ******************************************************************
   # to quick activate virtual environment
   function vn () {
-    if [[ -f $1/bin/activate ]]; then
-      . $1/bin/activate
+    if [[ $1 = "-l" ]]; then
+      LAST_PATH="$(cat $ZDOTDIR/.lastvn)"
+      . $LAST_PATH/bin/activate
+    else
+      if [[ -f $1/bin/activate ]]; then
+        . $1/bin/activate
+        FILE=$(readlink -e $1)
+        echo $FILE > $ZDOTDIR/.lastvn
+      fi
     fi
   }
 
@@ -89,8 +96,6 @@ fi
   alias v=vim
 
   # to change directory
-  alias :tasks="cd $HOME/Tasks"
-  alias :work=":tasks"
   alias :doc="cd $HOME/Documents"
   alias :dow="cd $HOME/Downloads"
 
