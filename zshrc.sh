@@ -43,6 +43,15 @@ fi
   setopt auto_list
   setopt auto_menu
 
+# ***** SET OTHER VARIABLES ********************************************************************************************
+  if [[ echo $(which nvim &>/dev/null ; echo $?) ]]; then
+    export EDITOR=nvim
+  else if [[ echo $(which vim &>/dev/null ; echo $?) ]]; then
+    export EDITOR=vim
+  else
+    export EDITOR=nano
+  fi
+
 # ***** SOURCING PREDEFINED FUNCTIONS.ZSH/ALIASES.ZSH ******************************************************************
   # to quick activate virtual environment
   function vn () {
@@ -94,6 +103,7 @@ fi
   alias vim=nvim
   alias n=nano
   alias v=vim
+  # alias vi=vim
 
   # to change directory
   alias :doc="cd $HOME/Documents"
