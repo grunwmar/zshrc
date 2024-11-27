@@ -44,9 +44,9 @@ fi
   setopt auto_menu
 
 # ***** SET OTHER VARIABLES ********************************************************************************************
-  if [[ echo $(which nvim &>/dev/null ; echo $?) ]]; then
+  if [[ $(which nvim &>/dev/null ; echo $?) ]]; then
     export EDITOR=nvim
-  else if [[ echo $(which vim &>/dev/null ; echo $?) ]]; then
+  else if [[ $(which vim &>/dev/null ; echo $?) ]]; then
     export EDITOR=vim
   else
     export EDITOR=nano
