@@ -45,11 +45,11 @@ fi
 
 # ***** SET OTHER VARIABLES ********************************************************************************************
   if [[ $(which nvim &>/dev/null ; echo $?) ]]; then
-    export EDITOR=nvim
-  else if [[ $(which vim &>/dev/null ; echo $?) ]]; then
-    export EDITOR=vim
+    export EDITOR='nvim'
+  elif [[ $(which vim &>/dev/null ; echo $?) ]]; then
+    export EDITOR='vim'
   else
-    export EDITOR=nano
+    export EDITOR='nano'
   fi
 
 # ***** SOURCING PREDEFINED FUNCTIONS.ZSH/ALIASES.ZSH ******************************************************************
@@ -132,4 +132,3 @@ fi
 
 # ***** PROMPTS ********************************************************************************************************
   load_prompt "prompt6"
-  clear
