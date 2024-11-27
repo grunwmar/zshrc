@@ -3,8 +3,6 @@
 # ***** PREPARE ENVIRONMENT ********************************************************************************************
 if [[ $1 = "--prepare" ]]; then
 
-
-
   ZPROFILE=$HOME/.zprofile
   ZSHENV=$HOME/.zshenv
 
