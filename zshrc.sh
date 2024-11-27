@@ -25,7 +25,7 @@ if [[ $1 = "--prepare" ]]; then
   echo 'fi' >> $ZSHENV
   echo '#!/usr/bin/zsh' >> $ZPROFILE
 
-  cp "$0" "$ZDOTDIR/.zshrc"
+  cp $0 $HOME/.zshrc
 
   exit 0
 fi
@@ -87,10 +87,10 @@ fi
   alias ll="ls -lAh"
   alias l="ls -lh"
 
-  # to quick open .zshrc and aliases.sh file
+  # to quick open .zshrc file
   alias @zshrc="$EDITOR $ZDOTDIR/.zshrc"
 
-  # alias nano="nano -T4"
+  alias nano="nano -T4"
   alias vim=nvim
   alias n=nano
   alias v=vim
