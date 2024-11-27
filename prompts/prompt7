@@ -1,0 +1,64 @@
+#!/usr/bin/zsh
+
+setopt prompt_subst
+
+
+NEWLINE=$'\n'
+DOLLAR=$'$'
+LBRACK=$'['
+T_RES=$'%{\033[0m%}'
+
+
+typeset -A COLORS
+COLORS=( [git]=10 [venv]=10 [user]=10 [hostname]=10 [path]=10 [exitcode]=7 [promptsign]=10 [border]=7 [time]=10 [separator]=7 )
+
+
+#***************************************************************************************
+function cl () {
+	echo "%{\033[$1m%}"
+}
+
+
+function get_git_branch() {
+    GIT=$(git branch --show-current 2>/dev/null)
+    if [[ -n $GIT ]]; then
+      echo "%F{${COLORS[border]}}git %f%{\033[3m%}%F{${COLORS[git]}}$GIT%f%{\033[0m%}%F{14}%f "
+    fi
+}
+
+
+function get_virtualenv() {
+    if [[ -n $VIRTUAL_ENV ]]; then
+      VENV=$(basename $VIRTUAL_ENV)
+      echo "%F{${COLORS[border]}}ven %f%{\033[3m%}%F{${COLORS[venv]}}$VENV%f%{\033[0m%}%F{14}%f "
+    fi
+}
+
+
+function get_hostname() {
+	HOSTNAME=$(hostname)
+	if [[ $COLUMNS -ge 70 ]]; then
+		echo -e "%F{${COLORS[separator]}}@%f%F{${COLORS[hostname]}}${HOSTNAME[@]:0:$1}%f"
+	else
+		echo -n ""
+	fi
+}
+
+
+#*******************************************************************************
+
+
+function precmd() {
+
+  STAT="$?"
+  EXITC="%(?..%F{9}-%?-%f)"
+
+  if ! [[ $STAT = 0 ]]; then
+  	EXITC+=$NEWLINE
+  fi
+
+  PROMPT='$EXITC$NEWLINE%F{${COLORS[border]}}┌%f%F{${COLORS[border]}}$LBRACK%f%F{${COLORS[user]}}%n%f$(get_hostname 12) %F{${COLORS[path]}}%~%f%F{${COLORS[border]}}]%f'
+  RPROMPT='%F{${COLORS[border]}}[%f$(get_git_branch)$(get_virtualenv)%F{${COLORS[time]}}%D{%H:%M}%f%F{${COLORS[border]}}]%f'
+
+  PROMPT="$PROMPT$NEWLINE%F{${COLORS[border]}}└[%f%(!.#.%F{${COLORS[promptsign]}}%%%f)%F{${COLORS[border]}}]%f "
+}

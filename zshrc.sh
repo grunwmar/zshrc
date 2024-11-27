@@ -3,40 +3,15 @@
 # ***** PREPARE ENVIRONMENT ********************************************************************************************
 if [[ $1 = "--prepare" ]]; then
 
-  if [[ $(which zsh &>/dev/null ; echo $?) ]]; then
-    echo "Can't find z-shell executable."
-    exit 1
-  fi
+
 
   ZPROFILE=$HOME/.zprofile
   ZSHENV=$HOME/.zshenv
 
-  SET_ZDOTDIR="$HOME"
-  SET_ZCMD="$HOME/.zcmd/"
-
-  echo -n "Set ZDOTDIR directory (default is $SET_ZDOTDIR/) [y/n] "
-  read ASK_ZDOTDIR
-
-  if [[ $ASK_DOTDIR = "y" ]]; then
-    echo "  New ZDOTDIR path: "
-    read AKS_ZDOTDIR_VALUE
-    SET_ZDOTDIR=$AKS_ZDOTDIR_VALUE
-  fi
-
-  echo -n "Set ZCMD directory (default is $SET_ZCMD) [y/n] "
-  read ASK_ZCMD
-
-  if [[ $ASK_ZCMD = "y" ]]; then
-    echo "  New ZCMD path: "
-    read AKS_ZCMD_VALUE
-    SET_ZCMD=$AKS_ZDOTDIR_VALUE
-  fi
-
-
   echo "#!/usr/bin/zsh/" > $ZSHENV
-  echo "ZDOTDIR=$SET_ZDOTDIRE" >> $ZSHENV
-  echo "ZCMD=$SET_ZCMD" >> $ZSHENV
-  echo 'ZPROMPTS=$ZDOTDIR/zprompts' >> $ZSHENV
+  echo "export ZDOTDIR="'$HOME' >> $ZSHENV
+  echo "export ZCMD="'$HOME'"/.zcmd" >> $ZSHENV
+  echo "export ZPROMPTS="'$HOME'"/.zprompts" >> $ZSHENV
   echo '' >> $ZSHENV
   echo '# checks' >> $ZSHENV
   echo 'if ! [[ -d $ZDOTDIR ]]; then' >> $ZSHENV
@@ -52,7 +27,7 @@ if [[ $1 = "--prepare" ]]; then
   echo 'fi' >> $ZSHENV
   echo '#!/usr/bin/zsh' >> $ZPROFILE
 
-  mv "$0" "$(basename $0)/.zshrc"
+  cp "$0" "$ZDOTDIR/.zshrc"
 
   exit 0
 fi
@@ -132,11 +107,8 @@ fi
   }
 
 # ***** SET PATH TO CUSTOM COMMANDS ************************************************************************************
-  ZCMD=HOME/.zcmd
   if [[ -d $ZCMD ]]; then
-      PATH+=$PATH:$HOME/.zcmd
-  else
-      mkdir -p $ZCMD
+      PATH+=$PATH:$ZCMD
   fi
 
 # ***** PLUGINS ********************************************************************************************************
