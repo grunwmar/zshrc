@@ -14,7 +14,7 @@ function cl () {
 function get_git_branch() {
     GIT=$(git branch --show-current 2>/dev/null)
     if [[ -n $GIT ]]; then
-      echo " %{\033[3m%}%F{11}~$GIT%f%{\033[0m%}"
+      echo " %{\033[3m%}%F{11}:$GIT%f%{\033[0m%}"
     fi
 }
 
@@ -38,7 +38,7 @@ function get_hostname() {
 function precmd() {
   STAT="$?"
   EXITC="%(?..%F{9}-%?-%f$NEWLINE)"
-  PROMPT='$EXITC$NEWLINE┌$(get_virtualenv)%F{10}%B%n%b%f$(get_hostname 10) %F{15}%B%~%b%f$(get_git_branch)'
+  PROMPT='$EXITC$NEWLINE┌$(get_virtualenv)%F{10}%B%n%b%f$(get_hostname 10) %F{15}%~%f$(get_git_branch)'
   RPROMPT=''
   PROMPT="$PROMPT$NEWLINE└%F{10}%D{%H:%M}%f%(!.#.%B%%%b) "
 }

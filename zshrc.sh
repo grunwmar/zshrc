@@ -111,11 +111,13 @@ fi
 
   # git aliases
   alias gadd="git add"
-  alias gada="git add ."
-  alias gcmt="git commit"
-  alias gcma="git commit --amend"
-  alias gpsh="git push"
-  function gsqs () { # git rebase -i <after-this-commit> (HEAD~n)
+  alias gadda="git add ."
+  alias gcho="git checkout"
+  alias gchob="git checkout -b"
+  alias gcom="git commit"
+  alias gcoma="git commit --amend"
+  alias gpus="git push"
+  function gsqu () { # git rebase -i <after-this-commit> (HEAD~n)
     git rebase -i HEAD~$1
   }
 
