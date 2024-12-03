@@ -1,0 +1,56 @@
+
+
+#!/usr/bin/zsh
+
+setopt prompt_subst
+
+NEWLINE=$'\n'
+DOLLAR=$'$'
+LBRACK=$'['
+T_RES=$'%{\033[0m%}'
+
+function cl () {
+	echo "%{\033[$1m%}"
+}
+
+function get_git_branch() {
+    GIT=$(git branch --show-current 2>/dev/null)
+    if [[ -n $GIT ]]; then
+      echo "─[%{\033[3m%}%F{11}$GIT%f%{\033[0m%}]"
+    fi
+}
+
+function get_virtualenv() {
+    if [[ -n $VIRTUAL_ENV ]]; then
+      VENV=$(basename $VIRTUAL_ENV)
+      echo "[\033[3m%}%F{6}$VENV%f%{\033[0m%}]─"
+    fi
+}
+
+function get_hostname() {
+	HOSTNAME=$(hostname)
+	if [[ $COLUMNS -ge 70 ]]; then
+        echo -e "@%F{2}${HOSTNAME[@]:0:$1}%f"
+	else
+		echo -n ""
+	fi
+}
+
+function put_label() {
+ echo -e "\033[3m%}%F{$2}@$1%f%{\033[0m%}"
+}
+
+#***********************************************************************************************************************
+label=$1
+label_color=$2
+function precmd() {
+  STAT="$?"
+  EXITC="%(?..%F{9}-%?-%f$NEWLINE)"
+  USERN="%(!.%F{9}%n%f.%F{10}%n%f)"
+  LABEL=" $(put_label $label $label_color)"
+  PROMPT='$EXITC$NEWLINE$LABEL$NEWLINE┌$(get_virtualenv)$LBRACK%F{10}%B$USERN%b%f$(get_hostname 20) %F{15}%~%f]$(get_git_branch)'
+  RPROMPT=''
+  PROMPT="$PROMPT$NEWLINE└$LBRACK%F{10}%D{%H:%M}%f]%(!.%F{11}#%f.%B%%%b) "
+}
+
+

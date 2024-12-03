@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 # ***** PREPARE ENVIRONMENT ********************************************************************************************
-if [[ $1 = "--prepare" ]]; then
+if [[ $1 = "--setup" ]]; then
 
   ZPROFILE=$HOME/.zprofile
   ZSHENV=$HOME/.zshenv
@@ -26,8 +26,7 @@ if [[ $1 = "--prepare" ]]; then
   echo '#!/usr/bin/zsh' >> $ZPROFILE
 
   cp $0 $HOME/.zshrc
-
-  exit 0
+  cp ./color.py $ZCMD/color.py
 fi
 
 # ***** SETTING UP HISTORY *********************************************************************************************
@@ -78,7 +77,7 @@ fi
 
   # to load custom prompt
   function load_prompt () {
-      . $ZPROMPTS/$1
+      . $ZPROMPTS/$1 $2 $3
   }
 
   # to load plugin
@@ -98,6 +97,7 @@ fi
 
   # to quick open .zshrc file
   alias @zshrc="$EDITOR $ZDOTDIR/.zshrc"
+  alias @z=@zshrc
 
   alias nano="nano -T4"
   alias vim=nvim
@@ -106,8 +106,8 @@ fi
   # alias vi=vim
 
   # to change directory
-  alias :doc="cd $HOME/Documents"
-  alias :dow="cd $HOME/Downloads"
+  # alias :doc="cd $HOME/Documents"
+  # alias :dow="cd $HOME/Downloads"
 
   # git aliases
   alias gadd="git add"
@@ -133,4 +133,10 @@ fi
   # load_plugin "zsh-autocomplete"
 
 # ***** PROMPTS ********************************************************************************************************
-  load_prompt "prompt6"
+function get_color() {
+    actual_dir=$(dirname $0)
+    generated_color=$(python3 $ZCMD/color.py)
+    echo $generated_color
+}
+
+load_prompt "prompt6a" "zsh-prompt-test" $(get_color)
