@@ -1,0 +1,61 @@
+#!/usr/bin/zsh
+
+URL=https://github.com/grunwmar/zshrc.git
+ZDOT=$HOME/.z
+
+dependencies=(git glow nano python3)
+
+case $1 in
+
+    -u | --update)
+        if [[ -d $ZDOT ]]; then
+            OLD_PWD=$PWD
+            cd $ZDOT
+            
+            git add .
+            git commit -m "UPDATE $(date)"
+            git pull -f
+            
+            cd $OLD_PWD
+        fi
+    ;;
+    
+    -r | -i | --refresh)
+    
+        if [[ -d $ZDOT ]]; then
+            rm -rf $ZDOT
+        fi
+        
+        echo "Cloning $URL"
+        
+        OLD_PWD=$PWD
+        cd $HOME
+        
+        git clone $URL $ZDOT
+        
+        cd $OLD_PWD
+        
+        if ! [[ -f $HOME/.zinitscr ]]; then
+            touch $HOME/.zinitscr
+        fi
+        
+        if ! [[ -f $HOME/.aliases ]]; then
+            touch $HOME/.aliases
+        fi
+        
+        if [[ -f $HOME/.zshrc ]]; then
+            rm $HOME/.zshrc
+        fi
+        
+        if ! [[ -d $HOME/.ztools ]]; then
+            mkdir $HOME/.ztools
+        fi
+        
+        if [[ -f $HOME/.zshrc ]]; then
+            rm $HOME/.zshrc
+        fi
+            
+        ln -s $ZDOT/zshrc.sh $HOME/.zshrc
+    ;;
+
+esac
