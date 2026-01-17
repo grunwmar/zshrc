@@ -68,7 +68,7 @@ function venv_widget() {
   if [[ -n "$VIRTUAL_ENV" ]]; then
     local env_name=$(basename "$VIRTUAL_ENV")
     local icon=""
-    local color="%F{13}"
+    local color="%F{12}"
 
     echo -e "[${color}${icon}${env_name}%f]"
   fi
@@ -119,7 +119,7 @@ function precmd() {
   EXITC="%(?..%F{9}-%?-%f$NEWLINE)"
   USERN="%(!.%F{9}%n%f.%n)"
 
-  PROMPT='$NEWLINE$(colored_path_widget)$(git_prompt_info) $(prompt_sign)'
+  PROMPT='$NEWLINE$LBRACK%F{13}%n%f]$(colored_path_widget)$(git_prompt_info) $(prompt_sign)'
 
   RPROMPT='$(venv_widget)$(sshd_status) $(hostname_clr)'
 }
