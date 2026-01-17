@@ -87,7 +87,7 @@ function clock_widget() {
 
 function sshd_status() {
   if pgrep -x sshd >/dev/null; then
-    echo -e " [%F{10}ssh%f]"
+    echo -e " [%F{14}ssh%f]"
   else
     echo -e ""
   fi
@@ -119,7 +119,7 @@ function precmd() {
   EXITC="%(?..%F{9}-%?-%f$NEWLINE)"
   USERN="%(!.%F{9}%n%f.%n)"
 
-  PROMPT='$NEWLINE$LBRACK%F{13}%n%f] $(colored_path_widget)$(git_prompt_info) $(prompt_sign)'
+  PROMPT='$NEWLINE$LBRACK%F{10}%n%f] $(colored_path_widget)$(git_prompt_info) $(prompt_sign)'
 
   RPROMPT='$(venv_widget)$(sshd_status) $(hostname_clr)'
 }
