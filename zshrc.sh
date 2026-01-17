@@ -76,7 +76,7 @@ fi
 # Source prompt style
 source $ZDOT/prompts/prompt-nonerd-simple.sh
 
-if [[ -f $ZUSER/.zinit ]]; then
-  . $ZUSER/.zinit
+if [[ -f $ZUSER/zinit ]]; then
+  . $ZUSER/zinit
 fi
 
