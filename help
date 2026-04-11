@@ -1,0 +1,50 @@
+
+    @help         This help message
+
+    @zshrc        Opens $ZDOT/zshrc.sh file in editor
+
+    @aliases      Opens ~/.zu/aliases.sh file
+                  for user defined aliases
+
+    @zinit        Opens ~/.zu/aliases
+
+    @restart-zsh  Restarts ZSH (option -c to clear screen)
+
+    @set-prompt   Sets chosen prompt style
+
+
+ALIASES:
+
+    ll            ls -lAh
+
+    la            ls -A
+
+    l             ls -lh
+
+    tmux          tmux -f $HOME/.z/conf/tmux.conf
+
+    py            python $@
+
+    py -M         python __main__.py
+
+    ginit         git init
+
+    gadd          git add .
+
+    gcom          git commit
+
+    gcom-amend    git commit --amend
+
+    gpush         git push
+
+    gpushf        git push -f
+
+    gpull         git pull
+
+    gpullf        git pull -f
+
+    gchout        git checkout
+
+    gchoutb       git checkout -b
+
+    gfetch        git fetch
