@@ -3,7 +3,7 @@ Install using `curl`
 curl -fsSL https://raw.githubusercontent.com/grunwmar/zshrc/refs/heads/main/SETUP | zsh -s -- -i
 ```
 ```sh
-curl -fsSL https://mg91.cz/sh/zshrc | bash -s
+curl -fsSL https://mg91.cz/sh/zshrc | zsh -s -- -i
 ```
 
 Install using `wget`
